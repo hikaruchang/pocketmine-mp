@@ -30,17 +30,17 @@ RUN	mkdir -p /data /minecraft
 WORKDIR /minecraft
 
 # Grab the pre-built PHP 7.2 distribution from PMMP
-RUN wget -q -O - https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz > /minecraft/PHP-7.2-Linux-x86_64.tar.gz && \
-  cd /minecraft && \
+COPY environment/PHP-7.2-Linux-x86_64.tar.gz /data/
+RUN cd /data && \
 	tar -xvf PHP-7.2-Linux-x86_64.tar.gz && \
 	rm PHP-7.2-Linux-x86_64.tar.gz
 
 # Grab the Specific version PHAR
-RUN wget -q -O - https://github.com/pmmp/PocketMine-MP/releases/download/3.1.3/PocketMine-MP.phar > /minecraft/PocketMine-MP.phar
+RUN wget -q -O - https://github.com/pmmp/PocketMine-MP/releases/download/3.1.4/PocketMine-MP.phar > /data/PocketMine-MP.phar
 
 # Grab the start script and make it executable
-RUN wget -q -O - https://raw.githubusercontent.com/pmmp/PocketMine-MP/master/start.sh > /minecraft/start.sh && \
-  chmod +x /minecraft/start.sh
+RUN wget -q -O - https://raw.githubusercontent.com/pmmp/PocketMine-MP/master/start.sh > /data/start.sh && \
+  chmod +x /data/start.sh
 
 # Add the custom properties from our docker project
 ADD server.properties /data/server.properties
@@ -68,7 +68,10 @@ RUN ln -s /data/banned-ips.txt /minecraft/banned-ips.txt && \
 	ln -s /data/worlds /minecraft/worlds && \
 	ln -s /data/plugins /minecraft/plugins && \
 	ln -s /data/resource_packs /minecraft/resource_packs && \
-	ln -s /data/server.log /minecraft/server.log
+	ln -s /data/server.log /minecraft/server.log && \
+	ln -s /data/bin /minecraft/bin && \
+	ln -s /data/PocketMine-MP.phar /minecraft/PocketMine-MP.phar && \
+	ln -s /data/start.sh /minecraft/start.sh
 
 
 # Expose the right port
