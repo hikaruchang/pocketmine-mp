@@ -2,7 +2,7 @@
 
 # [![PocketMine-MP](http://cdn.pocketmine.net/img/PocketMine-MP-h.png)](https://pmmp.io)
 
-Supported tags: `latest`, `3.1`, `3.1.3`
+Supported tags: `latest`, `3.1`, `3.1.4`
 
 This is a dockerized version of the [PocketMine-MP server](https://www.pmmp.io/) written in PHP, a highly customisable, open source server software for Minecraft: Pocket Edition written in PHP. More documentation regarding the server itself can be found at their website directly.
 
@@ -26,13 +26,13 @@ To learn how to use PocketMine-MP, please visit their [documentation site](http:
 
 To start with no mapped data, simple utilize the docker run command below. This will launch a new container with the default data present.
 
-`docker run -d -p 19132:19132/udp --name minecraft cscheide/pocketmine-mp:latest`
+`docker run -d -p 19132:19132/udp --name minecraft hikaruchang/pocketmine-mp:latest`
 
 ### Starting with existing data
 
 To persist data, ensure your configuration and data files are present in a volume and map a volume to `/data`.
 
-`docker run -d -v /your/directory/with/data:/data -p 19132:19132/udp --name minecraft cscheide/pocketmine-mp:latest`
+`docker run -d -v /your/directory/with/data:/data -p 19132:19132/udp --name minecraft hikaruchang/pocketmine-mp:latest`
 
 See the data management section below for more detail.
 
@@ -40,7 +40,7 @@ See the data management section below for more detail.
 
 To start the server with a TTY that you can reconnect to later
 
-`docker run -ti -p 19132:19132/udp --name minecraft cscheide/pocketmine-mp:latest`
+`docker run -ti -p 19132:19132/udp --name minecraft hikaruchang/pocketmine-mp:latest`
 
 When you are done with your session, type `Ctrl-P` followed by `Ctrl-Q`. To reattach to the session use
 
@@ -69,7 +69,7 @@ If you would to copy the default data into a local folder than you can then use 
 ```
 docker cp minecraft:/data /directory/to/store/data
 docker stop minecraft
-`docker run -d -v /directory/to/store/data:/data -p 19132:19132/udp --name new_minecraft cscheide/pocketmine-mp:latest`
+`docker run -d -v /directory/to/store/data:/data -p 19132:19132/udp --name new_minecraft hikaruchang/pocketmine-mp:latest`
 ```
 
 The above commands will copy the default data out of the container named "minecraft" into a directory. It will then stop the old minecraft container and start a "new_minecraft" container that utilizes your local data instead.
@@ -78,19 +78,19 @@ The above commands will copy the default data out of the container named "minecr
 
 ## How to Update To Latest Version
 
-This image is automatically updated when there are pushes to the `master` branch or when there are versions tagged from the (source repository)[https://github.com/crscheid/pocketmine-mp].
+This image is automatically updated when there are pushes to the `master` branch or when there are versions tagged from the (source repository)[https://github.com/hikaruchang/pocketmine-mp].
 
 First, pull the latest image down with Docker.
 
 ```
-docker pull cscheide/pocketmine-mp:latest
+docker pull hikaruchang/pocketmine-mp:latest
 ```
 
 The stop your existing container and recreate a new container.
 
 ```
 docker stop minecraft
-docker run -d -v /directory/to/store/data:/data -p 19132:19132/udp --name new_minecraft cscheide/pocketmine-mp:latest
+docker run -d -v /directory/to/store/data:/data -p 19132:19132/udp --name new_minecraft hikaruchang/pocketmine-mp:latest
 ```
 
 You may also choose to remove your old container if you have all of your data preserved.
